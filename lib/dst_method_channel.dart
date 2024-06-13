@@ -1,3 +1,4 @@
+import 'package:dst/dst_transition.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -10,15 +11,20 @@ class MethodChannelDst extends DstPlatform {
   final methodChannel = const MethodChannel('dst');
 
   @override
-  Future<DateTime?> nextDaylightSavingTransitionAfterDate(
+  Future<DstTransition?> nextDaylightSavingTransitionAfterDate(
       DateTime date, String timeZoneName) async {
-    final timestamp = await methodChannel
-        .invokeMethod<int>('nextDaylightSavingTransitionAfterDate', {
+    final res = await methodChannel
+        .invokeMethod<Map>('nextDaylightSavingTransitionAfterDate', {
       'date': date.millisecondsSinceEpoch,
       'timeZoneName': timeZoneName,
     });
-    return timestamp != null
-        ? DateTime.fromMillisecondsSinceEpoch(timestamp)
+    return (res?.containsKey("transitionDate") == true &&
+            res?.containsKey("offsetChange") == true &&
+            res?.containsKey("isDSTActive") == true)
+        ? DstTransition(
+            DateTime.fromMillisecondsSinceEpoch(res!["transitionDate"]),
+            res["offsetChange"],
+            res["isDSTActive"])
         : null;
   }
 }

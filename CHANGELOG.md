@@ -1,3 +1,9 @@
+## 1.0.1
+
+* added result model DstTransition
+* added offsetChange in hours, the amount if time (generally 1 hour) added or subtracted (value is negative) to the actual datetime
+* added isDSTActive as boolean, true if DST is active immediately after a transition
+
 ## 1.0.0
 
 * added primary method Future<DateTime> nextDaylightSavingTransitionAfterDate(DateTime date)

@@ -1,3 +1,4 @@
+import 'package:dst/dst_transition.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dst/dst_method_channel.dart';
@@ -13,7 +14,7 @@ void main() {
         .setMockMethodCallHandler(
       channel,
       (MethodCall methodCall) async {
-        return DateTime(2024, 1, 1);
+        return DstTransition(DateTime(2024, 1, 1), 1, true);
       },
     );
   });
@@ -23,10 +24,13 @@ void main() {
         .setMockMethodCallHandler(channel, null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(
-        await platform.nextDaylightSavingTransitionAfterDate(
-            DateTime(2024, 1, 1), "Europe/Rome"),
-        DateTime(2024, 1, 1));
+  test('nextDaylightSavingTransitionAfterDate', () async {
+    final checkDate = DateTime(2024, 1, 1);
+    final res = await platform.nextDaylightSavingTransitionAfterDate(
+        checkDate, "Europe/Rome");
+    expect(res != null, true);
+    expect(res?.transitionDate, checkDate);
+    expect(res?.offsetChange, 1);
+    expect(res?.isDSTActive, true);
   });
 }

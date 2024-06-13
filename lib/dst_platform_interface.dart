@@ -1,3 +1,4 @@
+import 'package:dst/dst_transition.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'dst_method_channel.dart';
@@ -23,7 +24,7 @@ abstract class DstPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<DateTime?> nextDaylightSavingTransitionAfterDate(
+  Future<DstTransition?> nextDaylightSavingTransitionAfterDate(
       DateTime date, String timeZoneName) {
     throw UnimplementedError(
         'nextDaylightSavingTransitionAfterDate() has not been implemented.');

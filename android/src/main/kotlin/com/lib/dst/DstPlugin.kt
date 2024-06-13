@@ -36,7 +36,16 @@ class DstPlugin : FlutterPlugin, MethodCallHandler {
 
             val nextTransition = getNextDSTTransition(date, timeZone)
             if (nextTransition != null) {
-                result.success(nextTransition.time)
+                val beforeOffset = timeZone.getOffset(date.time) / 3600000
+                val afterOffset = timeZone.getOffset(nextTransition.time) / 3600000
+                val offsetChange = afterOffset - beforeOffset
+                val isDSTActive = timeZone.inDaylightTime(nextTransition)
+                val transitionInfo = mapOf(
+                    "transitionDate" to nextTransition.time,
+                    "offsetChange" to offsetChange,
+                    "isDSTActive" to isDSTActive
+                )
+                result.success(transitionInfo)
             } else {
                 result.success(null)
             }

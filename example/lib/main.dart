@@ -1,3 +1,4 @@
+import 'package:dst/dst_transition.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -16,7 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DateTime? _nextDst;
+  DstTransition? _nextDst;
   final timeZoneName = "Europe/Rome";
   final _dstPlugin = Dst();
 
@@ -27,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _getNextDst() async {
-    final checkDate = _nextDst ??
+    final checkDate = _nextDst?.transitionDate ??
         DateTime.now()
             .copyWith(month: 1, day: 1, hour: 0, minute: 0, second: 0);
     try {
@@ -53,7 +54,10 @@ class _MyAppState extends State<MyApp> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                Text('Next DST in $timeZoneName: ${_nextDst ?? ""}'),
+                if (_nextDst != null)
+                  Text(
+                      "Next DST transition in $timeZoneName: ${_nextDst!.transitionDate} (Offset ${_nextDst!.offsetChange > 0 ? '+' : ''}${_nextDst!.offsetChange})"
+                      "\nDST is active: ${_nextDst!.isDSTActive}"),
                 const SizedBox(height: 20),
                 TextButton(
                     onPressed: _getNextDst, child: const Text("Get next")),

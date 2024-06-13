@@ -14,14 +14,14 @@ import 'package:dst/dst.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('getPlatformVersion test', (WidgetTester tester) async {
+  testWidgets('nextDaylightSavingTransitionAfterDate test',
+      (WidgetTester tester) async {
     final Dst plugin = Dst();
     final checkDate = DateTime.now();
-    final DateTime? res = await plugin.nextDaylightSavingTransitionAfterDate(
+    final res = await plugin.nextDaylightSavingTransitionAfterDate(
         checkDate, "Europe/Rome");
-    // The version string depends on the host platform running the test, so
-    // just assert that some non-empty string is returned.
     expect(res != null, true);
-    expect(res?.isAtSameMomentAs(checkDate), true);
+    expect(res?.transitionDate, checkDate);
+    expect(res?.offsetChange, checkDate);
   });
 }

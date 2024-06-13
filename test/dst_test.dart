@@ -1,3 +1,4 @@
+import 'package:dst/dst_transition.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dst/dst.dart';
 import 'package:dst/dst_platform_interface.dart';
@@ -6,9 +7,9 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockDstPlatform with MockPlatformInterfaceMixin implements DstPlatform {
   @override
-  Future<DateTime> nextDaylightSavingTransitionAfterDate(
+  Future<DstTransition?> nextDaylightSavingTransitionAfterDate(
           DateTime date, String timeZoneName) =>
-      Future.value(date);
+      Future.value(DstTransition(date, 1, true));
 }
 
 void main() {
@@ -23,9 +24,11 @@ void main() {
     MockDstPlatform fakePlatform = MockDstPlatform();
     DstPlatform.instance = fakePlatform;
     final checkDate = DateTime(2024, 1, 1);
-    expect(
-        await dstPlugin.nextDaylightSavingTransitionAfterDate(
-            checkDate, "Europe/Rome"),
-        checkDate);
+    final res = await dstPlugin.nextDaylightSavingTransitionAfterDate(
+        checkDate, "Europe/Rome");
+    expect(res != null, true);
+    expect(res?.transitionDate, checkDate);
+    expect(res?.offsetChange, 1);
+    expect(res?.isDSTActive, true);
   });
 }

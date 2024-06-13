@@ -20,8 +20,17 @@ public class DstPlugin: NSObject, FlutterPlugin {
             }
             
             let date = Date(timeIntervalSince1970: TimeInterval(epochDate / 1000))
-            if let nextTransition = timeZone.nextDaylightSavingTimeTransition(after: date) {
-                result(Int(nextTransition.timeIntervalSince1970 * 1000))
+            if let nextTransitionDate = timeZone.nextDaylightSavingTimeTransition(after: date) {
+                let beforeOffset = timeZone.secondsFromGMT(for: date) / 3600 // Convert seconds to hours
+                let afterOffset = timeZone.secondsFromGMT(for: nextTransitionDate) / 3600 // Convert seconds to hours
+                let offsetChange = afterOffset - beforeOffset
+                let isDSTActive = timeZone.isDaylightSavingTime(for: nextTransitionDate)
+                let transitionInfo = [
+                    "transitionDate": Int(nextTransitionDate.timeIntervalSince1970 * 1000),
+                    "offsetChange": offsetChange,
+                    "isDSTActive": isDSTActive
+                ] as [String : Any]
+                result(transitionInfo)
             } else {
                 result(nil)
             }
