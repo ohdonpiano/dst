@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(height: 20),
                 if (_nextDst != null)
                   Text(
-                      "Next DST transition in $timeZoneName: ${_nextDst!.transitionDate} (Offset ${_nextDst!.offsetChange > 0 ? '+' : ''}${_nextDst!.offsetChange})"
+                      "Next DST transition in $timeZoneName: ${_nextDst!.offsetChange > 0 ? _nextDst!.transitionDate.subtract(const Duration(seconds: 1)) : _nextDst!.transitionDate.add(const Duration(seconds: 3599))} (Offset ${_nextDst!.offsetChange > 0 ? '+' : ''}${_nextDst!.offsetChange})"
                       "\nDST is active: ${_nextDst!.isDSTActive}"),
                 const SizedBox(height: 20),
                 TextButton(

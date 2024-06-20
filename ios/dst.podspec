@@ -5,20 +5,17 @@
 Pod::Spec.new do |s|
   s.name             = 'dst'
   s.version          = '0.0.1'
-  s.summary          = 'Daylight saving time plugin'
+  s.summary          = 'A new Flutter plugin project.'
   s.description      = <<-DESC
-Daylight saving time plugin
+A new Flutter plugin project.
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Daniele Poggi' => 'daniele.poggi@gmail.com' }
+  s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
+  s.dependency 'Flutter'
   s.platform = :ios, '12.0'
-  s.ios.dependency 'Flutter'
-  s.osx.dependency 'FlutterMacOS'
-  s.ios.deployment_target = '11.0'
-  s.osx.deployment_target = '10.14'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }

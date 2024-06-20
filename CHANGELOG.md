@@ -1,3 +1,8 @@
+## 1.0.2
+
+* added macos platform
+* improved example transitionDate print: the exact time of change (-1 second) 
+
 ## 1.0.1
 
 * added result model DstTransition

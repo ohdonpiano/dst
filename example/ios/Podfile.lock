@@ -1,26 +1,25 @@
 PODS:
   - dst (0.0.1):
     - Flutter
-    - FlutterMacOS
   - Flutter (1.0.0)
   - integration_test (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - dst (from `.symlinks/plugins/dst/darwin`)
+  - dst (from `.symlinks/plugins/dst/ios`)
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
 
 EXTERNAL SOURCES:
   dst:
-    :path: ".symlinks/plugins/dst/darwin"
+    :path: ".symlinks/plugins/dst/ios"
   Flutter:
     :path: Flutter
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
 
 SPEC CHECKSUMS:
-  dst: 79feb1b9e58d284826603df6c93f4d93159e7a9f
+  dst: a2e5c6b543b7e12c03906f8a8b006f9fe503c879
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   integration_test: ce0a3ffa1de96d1a89ca0ac26fca7ea18a749ef4
 
