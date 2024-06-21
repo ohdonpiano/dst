@@ -1,6 +1,6 @@
 name: dst
 description: "Daylight saving time plugin"
-version: 1.0.2
+version: 1.0.3
 homepage: "https://github.com/ohdonpiano/dst"
 
 environment:
